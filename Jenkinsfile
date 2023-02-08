@@ -6,7 +6,7 @@ pipeline {
       steps {
          script {
               sh """
-               python ./tests/test_hello.py
+               python3 ./tests/test_hello.py
 
               """
           }
