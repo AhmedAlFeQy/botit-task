@@ -1,19 +1,18 @@
 pipeline {
   agent { label "slave"}
   stages {
-    
-//     stage('Checkout SCM') {
-//       steps {
-//         checkout([
-//           $class: 'GitSCM',
-//           branches: [[name: 'main']],
-//           userRemoteConfigs: [[
-//           url: 'git@github.com:AhmedAlFeQy/botit-task.git',
-//           credentialsId: '',
-//               ]]
-//             ])
-//          }  
-//       }
+   
+    stage('Test) {
+      steps {
+         script {
+              sh """
+               python ./tests/test_hello.py
+
+              """
+          }
+
+         }  
+      }
     stage('build') {
       steps {
         script {
