@@ -1,6 +1,6 @@
 # botit-task
 
-# The Project Components
+# The Task Components
 - **GKE**
 - **Kuberentes**
 - **Terraform**
