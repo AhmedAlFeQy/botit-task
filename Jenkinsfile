@@ -1,12 +1,28 @@
 pipeline {
   agent { label "slave"}
   stages {
+        stage('build') {
+      steps {
+        script {
+       
+            withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'username', passwordVariable: 'password')]) {
+              sh """
+        
+                  docker login -u ${username} -p ${password}
+                  docker build -t ahmedalfeqy/botitapptest:${BUILD_NUMBER} .
+                  docker push ahmedalfeqy/botitapptest:${BUILD_NUMBER}
+                  echo ${BUILD_NUMBER} > ../botitapptest-build-number.txt
+              """
+          }
+        } 
+      }
+    }
    
     stage('Test') {
       steps {
          script {
               sh """
-               python3 ./tests/test_hello.py
+             docker run ahmedalfeqy/botitapptest:${BUILD_NUMBER} 
 
               """
           }
