@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: botit
+  name: botit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: botit
+  template:
+    metadata:
+      labels:
+        app: botit
+    spec:
+      containers:
+      - image: ahmedalfeqy/botitapp:${BUILD_NUMBER}
+        name: botit
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        resources: {}
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: myservice
+  name: myservice
+spec:
+  ports:
+  - name: botit
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+    nodePort: 30010
+  selector:
+    app: botit
+  type: LoadBalancer
+status:
+  loadBalancer: {}
