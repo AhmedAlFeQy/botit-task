@@ -9,7 +9,7 @@ pipeline {
               sh """
         
                   docker login -u ${username} -p ${password}
-                  docker build -t ahmedalfeqy/botitapptest:${BUILD_NUMBER} .
+                  docker build -t ahmedalfeqy/botitapptest:${BUILD_NUMBER} -f ./tests/Dockerfile .
                   docker push ahmedalfeqy/botitapptest:${BUILD_NUMBER}
                   echo ${BUILD_NUMBER} > ../botitapptest-build-number.txt
               """
